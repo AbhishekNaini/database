@@ -1,0 +1,55 @@
+Sure! Here are 50 MongoDB interview questions:
+
+Basic Questions
+What is MongoDB?
+What are the main features of MongoDB?
+Explain the difference between MongoDB and a relational database.
+What is a document in MongoDB?
+What is a collection in MongoDB?
+How does MongoDB store data?
+What are the advantages of using MongoDB?
+What is a BSON in MongoDB?
+What is the use of the ObjectId in MongoDB?
+What is the default port for MongoDB?
+What is a replica set in MongoDB?
+What is sharding in MongoDB?
+What are the data types supported by MongoDB?
+How do you create a database in MongoDB?
+How do you create a collection in MongoDB?
+Intermediate Questions
+How do you insert a document in MongoDB?
+How do you update a document in MongoDB?
+How do you delete a document in MongoDB?
+What is the difference between find() and findOne() in MongoDB?
+How do you perform a query in MongoDB to find documents?
+Explain the difference between $set and $unset in MongoDB.
+What is indexing in MongoDB?
+How do you create an index in MongoDB?
+What is the aggregation framework in MongoDB?
+What are the different stages in an aggregation pipeline?
+Explain the use of the $match stage in an aggregation pipeline.
+Explain the use of the $group stage in an aggregation pipeline.
+How do you perform a join operation in MongoDB?
+What is a capped collection in MongoDB?
+What is the purpose of the $lookup operator?
+Advanced Questions
+How do you handle transactions in MongoDB?
+What is the WiredTiger storage engine in MongoDB?
+How do you perform backup and restore operations in MongoDB?
+What is a MongoDB Atlas?
+How do you achieve high availability in MongoDB?
+What is GridFS in MongoDB?
+Explain the purpose of the MongoDB oplog.
+What is a MongoDB schema design pattern?
+How do you ensure data consistency in MongoDB?
+How do you monitor MongoDB performance?
+What are MongoDB change streams?
+How do you secure a MongoDB deployment?
+What are the different types of relationships in MongoDB?
+Explain the difference between embedded documents and references.
+What is the purpose of the $merge stage in an aggregation pipeline?
+How do you handle concurrency in MongoDB?
+What are the different types of indexes in MongoDB?
+What is a MongoDB profiler?
+How do you use the $text operator for full-text search in MongoDB?
+What are the best practices for scaling MongoDB?

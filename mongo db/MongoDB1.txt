@@ -1,0 +1,364 @@
+Official: https://www.mongodb.com/docs/manual/introduction/
+MongoDB with python:
+import pymongo
+
+# Replace these with your connection details
+client = pymongo.MongoClient("mongodb://localhost:27017/")  # Assuming local MongoDB instance
+database_name = "my_database"
+collection_name = "articles"
+
+# Get the database and collection
+db = client[database_name]
+collection = db[collection_name]
+
+# Find all documents with "artificial intelligence" in the title (assuming a "title" field)
+articles = collection.find({"title": {"$regex": "artificial intelligence", "$options": "i"}})
+
+# Print the title of each article
+for article in articles:
+    print(article["title"])
+
+# Close the connection
+client.close()
+
+
+
+
+Difference between MySQL and MongoDB:
+MySQL and MongoDB are both popular database management systems, but they take different approaches to storing and managing data. Here's a breakdown of the key differences:
+
+Data Model:
+
+MySQL: Relational database (RDBMS). Stores data in tables with rows and columns. Each table has a fixed schema defining data types and relationships between tables.
+MongoDB: NoSQL database. Stores data in flexible JSON-like documents. Documents can have different structures and contain various data types, including nested documents and arrays.
+Schema:
+
+MySQL: Requires a predefined schema for each table. This ensures data consistency but can be limiting for evolving data models.
+MongoDB: Schema-less. Documents can have varying structures, offering more flexibility for data with unpredictable formats.
+Scaling:
+
+MySQL: Scales vertically by adding more powerful hardware. Can become complex and expensive for very large datasets.
+MongoDB: Scales horizontally by sharding data across multiple servers. Easier to add more servers for growing data needs.
+Queries:
+
+MySQL: Uses SQL (Structured Query Language) for querying data. Offers powerful features for complex relational queries.
+MongoDB: Uses a query language specific to MongoDB, similar to JSON. Focuses on querying within documents.
+Use Cases:
+
+MySQL: Ideal for structured data with well-defined relationships, like e-commerce applications or financial data.
+MongoDB: Well-suited for storing complex, evolving data structures, like user profiles in social media apps or content management systems.
+In short, MySQL is a good choice for traditional relational data with a well-defined schema. MongoDB is a better fit for flexible data structures that may change over time and for applications that need horizontal scalability.
+
+
+MongoDB is a popular NoSQL database that's known for its flexibility and scalability. Here's a quick rundown:
+
+Document-oriented: Unlike relational databases that store data in tables with fixed schemas, MongoDB stores data in flexible documents. These documents are similar to JSON objects, with key-value pairs that can hold various data types, including other documents and arrays. This makes it a good fit for storing complex data structures.
+
+Scalability: MongoDB can handle large datasets efficiently. It scales horizontally by distributing data across multiple servers (sharding). You can easily add more servers to handle growing data needs.
+
+High Performance: MongoDB is designed for fast data persistence and retrieval. Features like embedded documents and indexes help optimize queries and reduce I/O operations.
+
+NoSQL: As a NoSQL database, MongoDB doesn't rely on the rigid structure of relational databases. This gives you more flexibility in how you model your data, which can be helpful for evolving applications.
+
+If you're looking for a database that can handle complex data structures, scale with your application, and provide high performance, MongoDB is a strong contender. There are plenty of resources available online to get you started, including tutorials and documentation from MongoDB itself https://www.mongodb.com/docs/.
+
+Installation Steps:
+
+step 1: goto https://www.mongodb.com/try/download/community, 
+           select package > download it
+          left side select tools>shell> download
+step2: click download mongodb -> next-> complete
+Along with this MongoDB compass is also installed
+step 3: extract zip, rename mongosh, copy and past in program files>mongoDB
+step 4 : goto respective folders bin and copy the path and paste it in environment variables.
+
+Terminology:
+Compass--- userInterface
+mongosh--- command line(shell)
+Databases---> collections(they are similar to tables)---> documents(they are similiar to records) ---> fields(they are similar to columns
+Mongoose--> library to connect mongodb in node JS
+pymongo--> pip package to connect python with mongodb
+MongoDB atlas-> cloud environment mongoDB
+
+Commands:
+show dbs-> to see all the databases
+default connection string->27017
+default mongodb shell code--> mongosh
+exit shell---> exit;
+Create a  database : use database-name
+create collection: db.createCollection("collectionName")
+delete database: db.dropDatabase()
+delete collection: db.collection-name.drop()
+
+Datatypes:
+' '/" "==> string
+any number---> number
+NumberInt(),NumberLong(),NumberDouble()
+date--> new Date()--> it returns current date and time with format " yyyy-mm-ddTHH:MM:SSZ"
+or you can enter your own date , new Date(2023-05-25)--> 2023-05-25T00:00:00Z
+array: collection of values, embraced by [ ]
+object: key value pairs embraced by { }
+Certainly! Let's dive into each CRUD operation with examples to illustrate how they work in MongoDB:
+
+embedded documents/nested documents: {
+key:value,
+key:value,
+key:{
+
+}
+}
+
+Create
+
+Inserting a Single Document (insertOne())
+Imagine we have a collection named "books" to store book information. Here's how to add a document for a new book using insertOne():
+
+
+db.books.insertOne({
+  title: "The Lord of the Rings",
+  author: "J.R.R. Tolkien",
+  genre: "Fantasy"
+})
+
+This creates a new document with the specified title, author, and genre fields in the "books" collection.
+
+Inserting Multiple Documents (insertMany())
+Let's say we have an array of book details:
+
+
+const books = [
+  { title: "Pride and Prejudice", author: "Jane Austen", genre: "Romance" },
+  { title: "To Kill a Mockingbird", author: "Harper Lee", genre: "Drama" }
+];
+
+db.books.insertMany(books);
+
+This uses insertMany() to insert all documents from the "books" array into the "books" collection at once.
+
+Read
+
+Finding All Documents (find())
+To retrieve all documents from the "books" collection, you can use find():
+
+
+const allBooks = db.books.find();
+printjson(allBooks);
+
+This finds all documents and uses printjson() to display them in a human-readable format.
+
+Finding Documents with Filters (find())
+You can filter results using a query document passed to find(). For example, to find books of the "Fantasy" genre:
+
+
+const fantasyBooks = db.books.find({ genre: "Fantasy" });
+printjson(fantasyBooks);
+
+This searches for documents where the "genre" field matches "Fantasy".
+
+Finding the First Matching Document (findOne())
+If you only need the first document that meets a criteria, use findOne():
+
+
+const firstRomanceBook = db.books.findOne({ genre: "Romance" });
+printjson(firstRomanceBook);
+
+This retrieves the first document from the "books" collection where the "genre" is "Romance".
+
+Update
+
+Updating a Single Document (updateOne())
+Let's update the genre of the first book with "Fantasy" using updateOne():
+
+
+db.books.updateOne({}, { $set: { genre: "Fantasy" } });
+
+This updates the first document it finds (empty filter {}) by setting the "genre" field to "Fantasy" using the update operator $set.
+
+Updating Multiple Documents (updateMany())
+To update all books to a new edition:
+
+
+db.books.updateMany({}, { $set: { edition: 2 } });
+
+This updates all documents ({}) in the "books" collection by setting the "edition" field to 2 with the $set operator.
+
+Delete
+
+Deleting a Single Document (deleteOne())
+To remove the first book by title, use deleteOne():
+
+
+db.books.deleteOne({ title: "The Lord of the Rings" });
+
+This deletes the first document where the "title" field matches "The Lord of the Rings".
+
+Deleting Multiple Documents (deleteMany())
+To delete all books of a specific genre:
+
+
+db.books.deleteMany({ genre: "Drama" });
+
+This removes all documents from the "books" collection where the "genre" field is "Drama".
+
+
+
+Assignment1:
+Install mongodb and create a database,a collection and document regarding Library management system. try to perform  inserOne,insertMany,sort and limit.
+
+
+Assignment 2: take the dummy products json, create db,collection and insert the data.
+i.find the list of top 5 products whose rating is greater than 4
+ii. count the number of products of category smartphones .
+iii. order the products based on their names alphebetical order whose price is greater than 5000.
+iv. try to update the products rating if previous rating is less than 4.
+
+
+
+
+Operators:
+MongoDB provides a rich set of operators for querying, updating, and manipulating data. Here's a breakdown of some common categories of operators with examples:
+
+Comparison Operators:
+
+These operators compare values between documents and a specified value or another field.
+
+$eq (Equal): Checks for equality.
+
+db.users.find({ age: { $eq: 30 } });  // Find users with age 30
+
+$ne (Not Equal): Checks for inequality.
+
+db.products.find({ price: { $ne: 10 } });  // Find products not priced at $10
+
+$gt (Greater Than): Checks if a field value is greater than another value.
+
+db.orders.find({ total: { $gt: 50 } });  // Find orders with total amount > $50
+
+$gte (Greater Than or Equal): Checks if a field value is greater than or equal to another value.
+
+db.scores.find({ marks: { $gte: 80 } });  // Find scores 80 or higher
+
+$lt (Less Than): Checks if a field value is less than another value.
+
+db.inventory.find({ quantity: { $lt: 10 } });  // Find items with quantity less than 10
+
+$lte (Less Than or Equal): Checks if a field value is less than or equal to another value.
+
+db.appointments.find({ time: { $lte: new Date("2024-03-13") } });  // Find appointments on or before tomorrow
+
+
+Logical Operators:
+
+These operators combine multiple conditions for filtering documents.
+
+$and: Requires all specified conditions to be true for a match.
+
+db.customers.find({ age: { $gt: 21 }, state: "CA" });  // Find customers older than 21 in California
+
+$or: Returns documents where at least one condition is true.
+
+db.posts.find({ $or: [{ title: "News" }, { category: "Tech" }] });  // Find posts with title "News" or category "Tech"
+
+$not: Inverts the result of a condition.
+
+db.activeUsers.find({ $not: { status: "inactive" } });  // Find active users (excluding inactive ones)
+
+Array Operators:
+
+These operators work with data stored in arrays within documents.
+
+$in: Checks if a field value exists within an array of specified values.
+
+db.tags.find({ colors: { $in: ["red", "blue"] } });  // Find items with tags "red" or "blue"
+
+$nin (Not In): Checks if a field value does not exist within an array of specified values.
+
+db.cart.find({ items: { $nin: ["outOfStock"] } });  // Find carts with items excluding "outOfStock"
+
+$all: Checks if an array contains all specified values.
+
+db.permissions.find({ roles: { $all: ["admin", "editor"] } });  // Find users with both "admin" and "editor" roles
+
+Projection Operators:
+
+These operators specify which fields to include or exclude when retrieving documents.
+
+{_id: 0}: Excludes the _id field from the results.
+
+db.products.find({}, {_id: 0});  // Find products without the `_id` field
+
+{name: 1, price: 1}: Includes only the name and price fields.
+
+db.products.find({}, {name: 1, price: 1});  // Find products with just name and price
+
+
+
+Certainly! Update operators in MongoDB are powerful tools for modifying data within documents. Here's a more detailed breakdown of some commonly used update operators:
+
+Basic Update Operators:
+
+$set: Sets the value of a field.
+
+db.users.updateOne({ username: "john" }, { $set: { age: 35 } });  // Update age for user "john" to 35
+
+$unset: Removes a field from a document.
+
+db.products.updateOne({ _id: 2 }, { $unset: { discontinued: 1 } });  // Remove the "discontinued" field from product with ID 2
+
+$inc: Increments the value of a numeric field.
+
+db.inventory.updateOne({ name: "widgets" }, { $inc: { quantity: 10 } });  // Increase quantity of "widgets" by 10
+
+$dec: Decrements the value of a numeric field. Similar to $inc but subtracts.
+$dec don't work give $inc only with negitive value
+db.stock.updateOne({ symbol: "AAPL" }, { $dec: { shares: 50 } });  // Decrease shares held for stock symbol "AAPL" by 50
+
+Update Operators for Arrays:
+
+$push: Adds an element to the end of an array field.
+
+db.posts.updateOne({ _id: 1 }, { $push: { comments: { author: "Alice", content: "Great post!" } } });  // Add a new comment to post with ID 1
+
+$pop: Removes the first or last element from an array field.
+
+db.shoppingCart.updateOne({}, { $pop: { items: -1 } });  // Remove the last item from the "items" array in the shopping cart
+
+$pull: Removes all elements from an array field that match a specified condition.
+
+db.tasks.updateOne({ completed: true }, { $pull: { assignedTo: "Bob" } });  // Remove "Bob" from assigned users for all completed tasks
+
+Update Operators for Embedded Documents:
+
+$set can be used with nested fields to update specific values within embedded documents.
+
+db.orders.updateOne({ _id: 1 }, { $set: { "shipping.address": "123 Main St" } });  // Update shipping address for order with ID 1
+
+Element Operators:
+$exists: Checks if a field exists ({ field: { $exists: true } })
+$type: Checks the data type of a field ({ field: { $type: "string" } })
+$in: Checks if a field value exists within an array ({ field: { $in: [value1, value2] } })
+$nin: Checks if a field value does not exist within an array ({ field: { $nin: [value1, value2] } })
+$all: Checks if an array contains all specified values ({ field: { $all: [value1, value2] } })
+$size: Gets the length of an array ({ field: { $size: 2 } }) // Array must have exactly 2 elements
+Evaluation Operators:
+$where: Evaluates a  expression (db.collection.find({ $where: function() { ... } })) (use with caution due to performance implications)
+Geospatial Operators (for geospatial queries):
+$geoWithin: Checks if a geometry is within a specified area
+$near: Finds documents geospatially near a point
+$geoIntersects: Checks for geospatial intersection.
+
+
+
+
+indexes=> unique referencing
+aggregation=> combing documents and perform queries
+shrading=> according to the usage , new servers will be allocated
+replication=>always primary server will get copied into secondary server
+Atlas=> cloud platform for MongoDB
+
+
+
+
+
+
+

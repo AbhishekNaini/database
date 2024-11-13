@@ -1,0 +1,5 @@
+-- SELECT fname,sname,gender from school.students where country='India'
+-- SELECT fname,sname,dob from school.students where gender='male'
+-- select * from students where (gender='male') and (country='india') order by fname;
+ -- select * from students where (gender='male') and (country='india') order by fname desc;
+--  select distinct country from students;
